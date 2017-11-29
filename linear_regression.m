@@ -24,13 +24,16 @@ figure
 subplot(1,2,1);
 plot3(x1, x2, y, '.');
 title('Experimental data');
-xlabel('x1');
-ylabel('x2');
+xlabel('x_1');
+ylabel('x_2');
 zlabel('y');
 
 subplot(1,2,2);
 plot3(x1_normal, x2_normal, y_normal, '.');
 title('Experimental data after feature scaling');
-xlabel('x1_n');
-ylabel('x2_n');
+xlabel('x_1_n');
+ylabel('x_2_n');
 zlabel('y_n');
+
+% training examples length
+m = length(y);
