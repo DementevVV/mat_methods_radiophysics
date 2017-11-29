@@ -1,29 +1,35 @@
+clear all;
+clc;
+close all;
+
 % coefficietns a1, a2, a3
 a1 = 1;
 a2 = 1;
 a3 = 1;
 
 % generation x1, x2 and y
-x1 = rand(1, 100)*1000;
-x2 = rand(1, 100);
-x1_normal = (x1 - mean(x1))/std(x1);
-x2_normal = (x2 - mean(x2))/std(x2);
+x1 = rand(80, 1)*1000;
+x2 = rand(80, 1);
+X = [x1, x2];
 y = a1 * x1 + a2 * x2 + a3;
-y_normal = a1 * x1_normal + a2 * x2_normal + a3;
+
 % addition white gaussian noise to y
-Y = awgn(y, 5, 'measured');
-Y_normal = awgn(y_normal, 5, 'measured');
+y = awgn(y, 5, 'measured');
+
+% Normalization
+[x1_normal, x2_normal, y_normal] = normalize(x1, x2, a1, a2, a3);
+
 % 3D image with experimental data
 figure
-plot3(x1, x2, Y, '.');
+subplot(1,2,1);
+plot3(x1, x2, y, '.');
 title('Experimental data');
 xlabel('x1');
 ylabel('x2');
 zlabel('y');
 
-
-figure
-plot3(x1_normal, x2_normal, Y_normal, '.');
+subplot(1,2,2);
+plot3(x1_normal, x2_normal, y_normal, '.');
 title('Experimental data after feature scaling');
 xlabel('x1_n');
 ylabel('x2_n');
