@@ -4,12 +4,12 @@ close all;
 
 % coefficietns a1, a2, a3
 a1 = 1;
-a2 = 1;
-a3 = 1;
+a2 = 5;
+a3 = -8;
 
 % generation x1, x2 and y
-x1 = rand(80, 1)*1000;
-x2 = rand(80, 1);
+x1 = rand(100, 1)*1000;
+x2 = rand(100, 1);
 X = [x1, x2];
 y = a1 * x1 + a2 * x2 + a3;
 
@@ -35,5 +35,25 @@ xlabel('x_1_n');
 ylabel('x_2_n');
 zlabel('y_n');
 
-% training examples length
-m = length(y);
+figure
+plot(y, '.');
+
+m = length(y); % training examples length
+d = size(X,2); % number of features
+theta = zeros(d+1,1); % thetas - zero
+alpha = 0.01; % learning rate
+iterations = 1500; 
+thetaLen = length(theta);
+X = [ones(m,1) X]; % Add a col of 1's for the x0 terms
+
+cost(X, y, theta)
+
+[theta, J_history] = gradientDescent(X, y, theta, alpha, iterations);
+
+% plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
+% xlabel('Number of iterations');
+% ylabel('Cost J');
+%[theta, J_history] = gradientDescent(X, y, theta, alpha, iterations);
+
+% figure;
+% plot(J_history, 1:iterations);
