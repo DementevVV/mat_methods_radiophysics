@@ -1,4 +1,4 @@
-function [theta, J_History] = gradientDescent(X, theta, y, alpha, iterations)
+function [theta, J_History] = gradientDescent(X, y, theta, alpha, iterations)
 	m = length(y);
 	J_History = zeros(iterations, 1);
 	thetaLen = length(theta);
