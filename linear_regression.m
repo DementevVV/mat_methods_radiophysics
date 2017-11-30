@@ -5,13 +5,13 @@ close all;
 % coefficietns a1, a2, a3
 a1 = 1;
 a2 = 5;
-a3 = -8;
+a3 = 1;
 
 % generation x1, x2 and y
-x1 = rand(100, 1)*1000;
-x2 = rand(100, 1);
+x1 = 1000 * rand(1000, 1);
+x2 = rand(1000, 1);
 X = [x1, x2];
-y = a1 * x1 + a2 * x2 + a3;
+y = a1 * x2 + a2 * x1 + a3;
 
 % addition white gaussian noise to y
 y = awgn(y, 5, 'measured');
@@ -35,25 +35,31 @@ xlabel('x_1_n');
 ylabel('x_2_n');
 zlabel('y_n');
 
-figure
-plot(y, '.');
 
 m = length(y); % training examples length
 d = size(X,2); % number of features
 theta = zeros(d+1,1); % thetas - zero
-alpha = 0.01; % learning rate
-iterations = 1500; 
-thetaLen = length(theta);
-X = [ones(m,1) X]; % Add a col of 1's for the x0 terms
+alpha = 0.00000001; % learning rate
+numIters = 1000;
 
-cost(X, y, theta)
+% XNormEqn = [ones(m,1) X];
+% thetaNorm = NormalEquation(XNormEqn,y);
 
-[theta, J_history] = gradientDescent(X, y, theta, alpha, iterations);
+% [X, mu, stddev] = featureNormalize(X);
 
-% plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
-% xlabel('Number of iterations');
-% ylabel('Cost J');
-%[theta, J_history] = gradientDescent(X, y, theta, alpha, iterations);
+X = [ones(m,1) X];
+[theta, J_History] = gradientDescent(X, y, theta, alpha, numIters);
 
-% figure;
-% plot(J_history, 1:iterations);
+for ind=1:1000
+	pr(ind) = theta(1) + theta(2) * ind + theta(3) * ind;
+end
+
+figure;
+plot(J_History);
+
+
+
+figure;
+plot(1:length(y), y);
+hold on;
+plot(pr);
