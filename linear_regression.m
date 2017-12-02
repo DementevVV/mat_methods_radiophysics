@@ -39,8 +39,8 @@ zlabel('y_n');
 m = length(y); % training examples length
 d = size(X,2); % number of features
 theta = zeros(d+1,1); % thetas - zero
-alpha = 0.00000001; % learning rate
-numIters = 1000;
+alpha = 0.0000010; % learning rate
+numIters = 50000;
 
 % XNormEqn = [ones(m,1) X];
 % thetaNorm = NormalEquation(XNormEqn,y);
@@ -60,6 +60,6 @@ plot(J_History);
 
 
 figure;
-plot(1:length(y), y);
+plot(1:length(y), y, '.');
 hold on;
 plot(pr);
