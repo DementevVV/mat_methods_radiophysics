@@ -14,38 +14,38 @@ X = [x1, x2];
 y = a1 * x2 + a2 * x1 + a3;
 
 % addition white gaussian noise to y
-y = awgn(y, 5, 'measured');
+% y = awgn(y, 5, 'measured');
 
 % Normalization
 [x1_normal, x2_normal, y_normal] = normalize(x1, x2, a1, a2, a3);
 
-% 3D image with experimental data
-figure
-subplot(1,2,1);
-plot3(x1, x2, y, '.');
-title('Experimental data');
-xlabel('x_1');
-ylabel('x_2');
-zlabel('y');
+% % 3D image with experimental data
+% figure
+% subplot(1,2,1);
+% plot3(x1, x2, y, '.');
+% title('Experimental data');
+% xlabel('x_1');
+% ylabel('x_2');
+% zlabel('y');
 
-subplot(1,2,2);
-plot3(x1_normal, x2_normal, y_normal, '.');
-title('Experimental data after feature scaling');
-xlabel('x_1_n');
-ylabel('x_2_n');
-zlabel('y_n');
+% subplot(1,2,2);
+% plot3(x1_normal, x2_normal, y_normal, '.');
+% title('Experimental data after feature scaling');
+% xlabel('x_1_n');
+% ylabel('x_2_n');
+% zlabel('y_n');
 
 
 m = length(y); % training examples length
 d = size(X,2); % number of features
 theta = zeros(d+1,1); % thetas - zero
-alpha = 0.0000010; % learning rate
+alpha = 0.0000001; % learning rate
 numIters = 50000;
 
 % XNormEqn = [ones(m,1) X];
 % thetaNorm = NormalEquation(XNormEqn,y);
 
-% [X, mu, stddev] = featureNormalize(X);
+%[X, mu, stddev] = featureNormalize(X);
 
 X = [ones(m,1) X];
 [theta, J_History] = gradientDescent(X, y, theta, alpha, numIters);
@@ -59,7 +59,30 @@ plot(J_History);
 
 
 
-figure;
-plot(1:length(y), y, '.');
+%figure;
+%plot(1:length(y), y, '.');
+%hold on;
+%plot(pr);
+
+y_new = theta(1)* x2  + theta(2) * x1  + theta(3);
+% figure;
+% plot3(x1, x2, y_new, 'r.');
+
+
+% 3D image with experimental data
+figure
+subplot(1,2,1);
+plot3(x1, x2, y, '.');
 hold on;
-plot(pr);
+plot3(x1, x2, y_new, 'ro');
+title('Experimental data');
+xlabel('x_1');
+ylabel('x_2');
+zlabel('y');
+
+subplot(1,2,2);
+plot3(x1_normal, x2_normal, y_normal, '.');
+title('Experimental data after feature scaling');
+xlabel('x_1_n');
+ylabel('x_2_n');
+zlabel('y_n');
