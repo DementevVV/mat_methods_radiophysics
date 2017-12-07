@@ -7,7 +7,7 @@ f2 = 7500; %Hz
 f3 = 2200; %Hz
 
 A1 = 5;
-A2 = 1;
+A2 = 1; % if A2 = 0, harmonic down
 A3 = 10;
 
 T  = 0.1;
