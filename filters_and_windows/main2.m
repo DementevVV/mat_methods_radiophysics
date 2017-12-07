@@ -7,7 +7,7 @@ f2 = 7500; %Hz
 f3 = 2200; %Hz
 
 A1 = 5;
-A2 = 1; % if A2 = 0, harmonic down
+A2 = 0.1; % if A2 = 0, harmonic down
 A3 = 10;
 
 T  = 0.1;
@@ -15,12 +15,12 @@ fs = 20000.0;
 t  = 0:1/fs:T;
 n  = length(t);
 noise_ampl = 5;
-noise = rand(1,n);
+noise = normrnd(1,n);
 S = A1*exp(1i*2*pi*f1*t)+A2*exp(1i*2*pi*f2*t)+A3*exp(1i*2*pi*f3*t)+noise_ampl*noise*(1+1i);
-
+% S = awgn(S, 2, 'measured');
 F = abs(fft(S));
 F = F./n;
-F = 10 * log(F);
+F = 10 * log10(F);
 f=0:fs/n:fs/2-1/n;
 figure;
 subplot(2,2,1)
@@ -47,13 +47,13 @@ win = hamming(n);
 S_w = S.*win';
 F_w = abs(fft(S_w));
 F_w = F_w./n;
-F_w = 10 * log(F_w);
+F_w = 10 * log10(F_w);
 
 figure;
 subplot(2,1,1);
 plot(t,real(S_w),'r');
 title('Signal * window');
-xlabel('time, s');
+xlabel('t, s');
 ylabel('Amplitude, dB');
 grid on
 subplot(2,1,2);
