@@ -16,7 +16,7 @@ h2 = 10.0;
 % generate X from the gamma distribution
 X = gamrnd(A,B,m);
 %  generate Y from the gamma distribution
-Y = gamrnd(A,B,n);
+Y = 2 * gamrnd(A,B,n);
 
 figure;
 subplot(2,2,1);

@@ -14,7 +14,7 @@ X = [x1, x2];
 y = a1 * x2 + a2 * x1 + a3;
 
 % addition white gaussian noise to y
-% y = awgn(y, 5, 'measured');
+y = awgn(y, 0.5, 'measured');
 
 % Normalization
 [x1_normal, x2_normal, y_normal] = normalize(x1, x2, a1, a2, a3);
@@ -42,10 +42,10 @@ theta = zeros(d+1,1); % thetas - zero
 alpha = 0.0000001; % learning rate
 numIters = 50000;
 
-% XNormEqn = [ones(m,1) X];
-% thetaNorm = NormalEquation(XNormEqn,y);
+XNormEqn = [ones(m,1) X];
+thetaNorm = NormalEquation(XNormEqn,y);
 
-%[X, mu, stddev] = featureNormalize(X);
+[X, mu, stddev] = featureNormalize(X);
 
 X = [ones(m,1) X];
 [theta, J_History] = gradientDescent(X, y, theta, alpha, numIters);
